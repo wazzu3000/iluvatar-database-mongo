@@ -1,0 +1,21 @@
+{
+  "name": "@wazzu/iluvatar-database-mongo",
+  "version": "0.0.1-beta",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Raúl Alexander Mendoza Muñoz",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@wazzu/iluvatar-core": "git+https://github.com/wazzu3000/iluvatar-core.git",
+    "@wazzu/iluvatar-database": "git+https://github.com/wazzu3000/iluvatar-database.git",
+    "mongodb": "~3.0.2"
+  },
+  "devDependencies": {
+    "@types/mongodb": "~3.0.5",
+    "typescript": "~2.7.1"
+  }
+}
