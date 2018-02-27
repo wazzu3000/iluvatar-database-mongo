@@ -1,4 +1,4 @@
-import { FindCrud as FindCrudMaster } from '@wazzu/iluvatar-database';
+import { FindCrud as FindCrudMaster } from '@wazzu/iluvatar-core';
 import { Db, ObjectID } from 'mongodb';
 
 export class FindCrud extends FindCrudMaster {

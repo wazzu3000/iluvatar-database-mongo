@@ -1,5 +1,5 @@
 declare module '@wazzu/iluvatar-database-mongo' {
-    import IluvatarDatabaseMaster = require('@wazzu/iluvatar-database');
+    import IluvatarDatabaseMaster = require('@wazzu/iluvatar-core');
     import Mongo = require('mongodb');
 
     class IluvatarDatabase extends IluvatarDatabaseMaster.IluvatarDatabase {
@@ -16,5 +16,6 @@ declare module '@wazzu/iluvatar-database-mongo' {
         public closeConnection(): void;
         public newInstance(): IluvatarDatabase;
         public newInstance(_schemaName?: string): IluvatarDatabase;
+        public getTypesSupported(): IluvatarDatabaseMaster.DatabaseType[];
     }
 }

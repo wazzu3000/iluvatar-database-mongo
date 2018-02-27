@@ -1,16 +1,57 @@
-import { DatabaseModel, Config } from '@wazzu/iluvatar-core';
 import {
+    DatabaseModel,
+    Config,
     IluvatarDatabase as IluvatarDatabaseMaster,
     FindCrud as FindCrudMaster,
     UpdateCrud as UpdateCrudMaster,
     CreateCrud as CreateCrudMaster,
-    DeleteCrud as DeleteCrudMaster
-} from '@wazzu/iluvatar-database';
-import { MongoClient, Db } from 'mongodb';
+    DeleteCrud as DeleteCrudMaster,
+    DatabaseType
+} from '@wazzu/iluvatar-core';
+import { MongoClient, Db, ObjectID, Binary } from 'mongodb';
 import { FindCrud } from './find.crud';
 import { UpdateCrud } from './update.crud';
 import { CreateCrud } from './create.crud';
 import { DeleteCrud } from './delete.crud';
+
+const databaseTypes: DatabaseType[] = [
+    {
+        databaseType: /^(Double|Int(eger)?|Long|Decimal)$/i,
+        javascriptType: 'number'
+    },
+    {
+        databaseType: /^String$/i,
+        javascriptType: 'string'
+    },
+    {
+        databaseType: /^Object$/i,
+        javascriptType: Object
+    },
+    {
+        databaseType: /^Array$/i,
+        javascriptType: Array
+    },
+    {
+        databaseType: /^BinData$/i,
+        javascriptType: Binary
+    },
+    {
+        databaseType: /^ObjectId$/i,
+        javascriptType: ObjectID
+    },
+    {
+        databaseType: /^Boolean$/i,
+        javascriptType: 'boolean'
+    },
+    {
+        databaseType: /^(Date|Timestamp)$/i,
+        javascriptType: Date
+    },
+    {
+        databaseType: /^RegExp$/i,
+        javascriptType: RegExp
+    }
+];
 
 /**
  * Clase para realizar las operaciones básicas de mongodb
@@ -61,5 +102,9 @@ export class IluvatarDatabase extends IluvatarDatabaseMaster {
 
     public newInstance(_schemaName?: string): IluvatarDatabase {
         return new IluvatarDatabase(_schemaName);
+    }
+
+    public getTypesSupported(): DatabaseType[] {
+        return databaseTypes;
     }
 }

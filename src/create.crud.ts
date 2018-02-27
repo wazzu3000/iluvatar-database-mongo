@@ -1,4 +1,4 @@
-import { CreateCrud as CreateCrudMaster } from '@wazzu/iluvatar-database';
+import { CreateCrud as CreateCrudMaster } from '@wazzu/iluvatar-core';
 import { Db } from 'mongodb';
 
 export class CreateCrud extends CreateCrudMaster {
@@ -8,7 +8,13 @@ export class CreateCrud extends CreateCrudMaster {
     }
 
     public doQuery(): Promise<any> {
-        return this.db.collection(this.schemaName).insert(this.values).then(value => {
+        let valuesClean: any
+        try {
+            valuesClean = this.schema.cleanAndVerifyValues(this.values);
+        } catch (err) {
+            return this.sendError(err);
+        }
+        return this.db.collection(this.schemaName).insert(valuesClean).then(value => {
             return value.ops[0]
         });
     }

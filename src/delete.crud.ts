@@ -1,4 +1,4 @@
-import { DeleteCrud as DeleteCrudMaster } from '@wazzu/iluvatar-database';
+import { DeleteCrud as DeleteCrudMaster } from '@wazzu/iluvatar-core';
 import { Db, ObjectID } from 'mongodb';
 
 export class DeleteCrud extends DeleteCrudMaster {
