@@ -1,68 +1,27 @@
 import {
     DatabaseModel,
     Config,
-    IluvatarDatabase as IluvatarDatabaseMaster,
+    IluvatarDatabaseInstancier as IluvatarDatabaseMaster,
     FindCrud as FindCrudMaster,
     UpdateCrud as UpdateCrudMaster,
     CreateCrud as CreateCrudMaster,
     DeleteCrud as DeleteCrudMaster,
     DatabaseType
 } from '@wazzu/iluvatar-core';
-import { MongoClient, Db, ObjectID, Binary } from 'mongodb';
+import { MongoClient, Db } from 'mongodb';
 import { FindCrud } from './find.crud';
 import { UpdateCrud } from './update.crud';
 import { CreateCrud } from './create.crud';
 import { DeleteCrud } from './delete.crud';
 
-const databaseTypes: DatabaseType[] = [
-    {
-        databaseType: /^(Double|Int(eger)?|Long|Decimal)$/i,
-        javascriptType: 'number'
-    },
-    {
-        databaseType: /^String$/i,
-        javascriptType: 'string'
-    },
-    {
-        databaseType: /^Object$/i,
-        javascriptType: Object
-    },
-    {
-        databaseType: /^Array$/i,
-        javascriptType: Array
-    },
-    {
-        databaseType: /^BinData$/i,
-        javascriptType: Binary
-    },
-    {
-        databaseType: /^ObjectId$/i,
-        javascriptType: ObjectID
-    },
-    {
-        databaseType: /^Boolean$/i,
-        javascriptType: 'boolean'
-    },
-    {
-        databaseType: /^(Date|Timestamp)$/i,
-        javascriptType: Date
-    },
-    {
-        databaseType: /^RegExp$/i,
-        javascriptType: RegExp
-    }
-];
-
 /**
  * Clase para realizar las operaciones básicas de mongodb
  */
-export class IluvatarDatabase extends IluvatarDatabaseMaster {
+export class IluvatarDatabaseInstancier extends IluvatarDatabaseMaster {
     private connection: MongoClient;
     private db: Db;
 
-    public constructor();
-    public constructor(_schemaName: string);
-    public constructor(_schemaName?: string) {
+    public constructor(_schemaName: string) {
         super(_schemaName);
         this._defaultId = '_id';
     }
@@ -98,13 +57,5 @@ export class IluvatarDatabase extends IluvatarDatabaseMaster {
             throw '';
         }
         this.connection.close();
-    }
-
-    public newInstance(_schemaName?: string): IluvatarDatabase {
-        return new IluvatarDatabase(_schemaName);
-    }
-
-    public getTypesSupported(): DatabaseType[] {
-        return databaseTypes;
     }
 }
