@@ -1,5 +1,5 @@
 import { ObjectID, Binary } from 'mongodb';
-import { IluvatarDatabase, DatabaseType } from '@wazzu/iluvatar-core';
+import { IluvatarDatabase, DatabaseType, Schema } from '@wazzu/iluvatar-core';
 import { IluvatarDatabaseInstancier } from './iluvatar-database-instancier';
 
 const databaseTypes: DatabaseType[] = [
@@ -43,11 +43,19 @@ const databaseTypes: DatabaseType[] = [
 
 export class IluvatarDatabaseMongo extends IluvatarDatabase {
 
-    getTypesSupported(): DatabaseType[] {
+    public getTypesSupported(): DatabaseType[] {
         return databaseTypes;
     }
 
-    newIluvatarDatabaseInstancier(_schemaName: string): IluvatarDatabaseInstancier {
+    public newIluvatarDatabaseInstancier(_schemaName: string): IluvatarDatabaseInstancier {
         return new IluvatarDatabaseInstancier(_schemaName);
+    }
+
+    public createSchemaInDb(schema: Schema) {
+
+    }
+
+    public createUniqueKey(schemaName: string, fieldName: string) {
+
     }
 }
